@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       row.innerHTML = `
         <td>${record.eventName}</td>
         <td>${record.eventDate}</td>
+        <td>${record.eventStartTime}</td>
+        <td>${record.eventEndTime}</td>
         <td style="color: ${statusColor};">${record.status}</td>
       `;
       userAttendanceTableBody.appendChild(row);
