@@ -6,7 +6,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     const password = document.getElementById('password').value;
   
     try {
-      const response = await fetch('/auth/login', {
+      const response = await fetch('https://exc-attendance-be.vercel.app/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, registrationNumber, password })
@@ -17,9 +17,9 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       if (response.ok) {
         localStorage.setItem('token', data.token);
         if (data.role === 'admin') {
-          window.location.href = '/admin.html';
+          window.location.href = 'https://exc-attendance-be.vercel.app/admin.html';
         } else if (data.role === 'user') {
-          window.location.href = '/user.html';
+          window.location.href = 'https://exc-attendance-be.vercel.app/user.html';
         }
       } else {
         document.getElementById('error').textContent = data.msg;
@@ -34,8 +34,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     const token = localStorage.getItem('token');
     if (token) {
       const { role } = JSON.parse(atob(token.split('.')[1]));
-      if (role === 'admin') window.location.href = '/admin.html';
-      if (role === 'user') window.location.href = '/user.html';
+      if (role === 'admin') window.location.href = 'https://exc-attendance-be.vercel.app/admin.html';
+      if (role === 'user') window.location.href = 'https://exc-attendance-be.vercel.app/user.html';
     }
   };
   
