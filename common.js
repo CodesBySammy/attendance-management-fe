@@ -6,7 +6,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const response = await fetch('https://exc-attendance-be.vercel.app/login', {
+    const response = await fetch('/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, registrationNumber, password })
@@ -27,7 +27,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
 // Fetch User Events and Attendance
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await fetch('https://exc-attendance-be.vercel.app/user/events', {
+    const response = await fetch('/user/events', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
     const attendanceData = await response.json();
