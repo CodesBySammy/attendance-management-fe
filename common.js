@@ -36,10 +36,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     userAttendanceTableBody.innerHTML = '';
     attendanceData.forEach(record => {
       const row = document.createElement('tr');
+      const statusColor = record.status === 'absent' ? 'red' : 'black';
       row.innerHTML = `
         <td>${record.eventName}</td>
         <td>${record.eventDate}</td>
-        <td>${record.status}</td>
+        <td style="color: ${statusColor};">${record.status}</td>
       `;
       userAttendanceTableBody.appendChild(row);
     });
