@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch Students for Attendance
   createEventBtn.addEventListener('click', async () => {
     try {
-      const response = await fetch('/admin/students', {
+      const response = await fetch('https://exc-attendance-be.vercel.app/admin/students', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const students = await response.json();
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     try {
-      const response = await fetch('/admin/post-attendance', {
+      const response = await fetch('https://exc-attendance-be.vercel.app/admin/post-attendance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewEventDate = document.getElementById('viewEventDate').value;
 
     try {
-      const response = await fetch(`/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}`, {
+      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const attendance = await response.json();
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventDate = document.getElementById('viewEventDate').value;
   
     try {
-      const response = await fetch(`/admin/download-attendance?eventName=${eventName}&eventDate=${eventDate}`, {
+      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/download-attendance?eventName=${eventName}&eventDate=${eventDate}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
   
