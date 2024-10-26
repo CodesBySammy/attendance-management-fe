@@ -12,6 +12,7 @@
         padding: 0;
         box-sizing: border-box;
     }
+
     /* Body Styling */
     body {
         font-family: Arial, sans-serif;
@@ -22,11 +23,13 @@
         align-items: center;
         padding: 20px;
     }
+
     /* Header Styling */
     h1 {
         color: #FF6F3C;
         margin-bottom: 20px;
     }
+
     /* Button Styling */
     button {
         background-color: #FF6F3C;
@@ -47,6 +50,7 @@
         right: 20px;
         font-size: 14px;
     }
+
     /* Section Styling */
     section {
         background-color: #fff;
@@ -54,17 +58,18 @@
         margin-bottom: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 600px;
-        overflow: auto; /* Ensures content remains within the section */
+        width: 90%;
+        max-width: 800px;
+        overflow: auto;
     }
     h2 {
         color: #2A2D34;
         margin-bottom: 15px;
     }
+
     /* Input Fields */
     input[type="text"], input[type="date"], input[type="time"] {
-        width: 100%;
+        width: 95%;
         padding: 10px;
         margin: 5px 0 15px;
         border: 1px solid #ddd;
@@ -72,6 +77,7 @@
         font-size: 16px;
         color: #2A2D34;
     }
+
     /* Table Styling */
     table {
         width: 100%;
@@ -92,12 +98,14 @@
     td {
         background-color: #fff;
     }
+
     /* Event Message Styling */
     #eventMessage {
         color: #FF6F3C;
         font-weight: bold;
         margin-top: 10px;
     }
+
     /* Additional Styling for Labels and Headings */
     label {
         color: #2A2D34;
@@ -107,7 +115,78 @@
         color: #2A2D34;
         margin-top: 20px;
     }
-</style>
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+
+        #logoutButton {
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        section {
+            padding: 15px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 10px;
+            font-size: 14px;
+        }
+
+        table {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 20px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        #logoutButton {
+            font-size: 12px;
+            padding: 6px 8px;
+        }
+
+        button {
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+
+        input[type="text"], input[type="date"], input[type="time"] {
+            font-size: 12px;
+            padding: 8px;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+    }
+  </style>
 </head>
 <body>
   <h1>Admin Panel</h1>
