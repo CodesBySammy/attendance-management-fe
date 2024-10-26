@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
   postAttendanceBtn.addEventListener('click', async () => {
     const eventName = document.getElementById('eventName').value;
     const eventDate = document.getElementById('eventDate').value;
+    const eventStartTime = document.getElementById('eventStartTime').value; // Get the event start time
+    const eventEndTime = document.getElementById('eventEndTime').value; // Get the event end time
     const attendance = Array.from(document.querySelectorAll('[data-student-id]')).map(select => ({
       studentId: select.dataset.studentId,
       status: select.value,
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({ eventName, eventDate, attendance }),
+        body: JSON.stringify({ eventName, eventDate,eventStartTime,eventEndTime, attendance }),
       });
 
       const data = await response.json();
@@ -66,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
   viewAttendanceBtn.addEventListener('click', async () => {
     const viewEventName = document.getElementById('viewEventName').value;
     const viewEventDate = document.getElementById('viewEventDate').value;
+    const viewEventStartTime = document.getElementById('viewEventStartTime').value; // Get the event start time
+    const viewEventEndTime = document.getElementById('viewEventEndTime').value; // Get the event end time
 
     try {
-      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}`, {
+      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}&eventStartTime=${viewEventStartTime}&eventEndTime=${viewEventEndTime}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       
@@ -104,6 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           attendanceTableBody.appendChild(row);
         });
+         // Display event start time and end time (if needed)
+    const eventInfo = document.getElementById('eventInfo');
+    eventInfo.textContent = `Event Start Time: ${data.eventStartTime}, Event End Time: ${data.eventEndTime}`; // Show event times
       }
     } catch (error) {
       console.error('Error viewing attendance:', error);
@@ -114,9 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
   downloadAttendanceBtn?.addEventListener('click', async () => {
     const eventName = document.getElementById('viewEventName').value;
     const eventDate = document.getElementById('viewEventDate').value;
+    const eventStartTime = document.getElementById('viewEventStartTime').value; // Get the event start time
+    const eventEndTime = document.getElementById('viewEventEndTime').value; // Get the event end time
 
     try {
-      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/download-attendance?eventName=${eventName}&eventDate=${eventDate}`, {
+      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/download-attendance?eventName=${eventName}&eventDate=${eventDate}&eventStartTime=${eventStartTime}&eventEndTime=${eventEndTime}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 
@@ -126,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `attendance_${eventName}_${eventDate}.xlsx`;
+      a.download = `attendance_${eventName}_${eventDate}_${eventStartTime}_${eventEndTime}.xlsx`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
