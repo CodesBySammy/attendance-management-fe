@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${student.email}</td>
           <td>
             <select data-student-id="${student._id}">
-              <option value="present">Present</option>
               <option value="absent">Absent</option>
+              <option value="present">Present</option>
             </select>
           </td>
         `;
