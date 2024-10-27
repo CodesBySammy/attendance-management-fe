@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
- <!-- <link rel="stylesheet" href="styles.css">-->
-  <style>
+  <link rel="stylesheet" href="styles.css">
+      <style>
            /* General Reset */
     * {
       margin: 0;
@@ -84,6 +84,9 @@
   </style>
 </head>
 <body>
+  <div id="loader" class="loader">
+    <img src="/anda-removebg-preview.png" alt="Loading..." />
+</div>
   <h1>Login</h1>
   <form id="loginForm">
     <label for="email">Email:</label>
@@ -93,8 +96,10 @@
     <label for="password">Password:</label>
     <input type="password" id="password" required>
     <button type="submit">Login</button>
+    <p id="errorMessage"></p>
   </form>
-  <p id="errorMessage"></p>
+  
   <script src="common.js"></script>
+  <script src="loader.js"></script>
 </body>
 </html>
