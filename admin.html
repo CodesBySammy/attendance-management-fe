@@ -8,267 +8,259 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     /* General Reset */
-
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     /* Body Styling */
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-        color: #2A2D34;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #2A2D34;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* Header Styling */
     h1 {
-        color: #FF6F3C;
-        margin-bottom: 20px;
+      color: #FF6F3C;
+      margin-bottom: 20px;
     }
 
     /* Button Styling */
     button {
-        background-color: #FF6F3C;
-        color: #fff;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s;
+      background-color: #FF6F3C;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      
     }
     button:hover {
-        background-color: #e65a28;
-    }
-    #logoutButton {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 14px;
+      background-color: #e65a28;
     }
 
-    /* Section Styling */
-    section {
-        background-color: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 800px;
-        overflow: auto;
+    #logoutButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
     }
-    h2 {
-        color: #2A2D34;
-        margin-bottom: 15px;
+
+    .modal-content {
+        display: none; /* Initially hidden */
+        position: fixed; /* Fixed position to overlay */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust centering */
+        background-color: #fff; /* White background */
+        padding: 20px; /* Padding inside the modal */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        max-height: 80%; /* Maximum height of the modal */
+        overflow-y: auto; /* Enable vertical scrolling */
+        z-index: 1000; /* Bring to front */
+      }
+      
+      /* Background overlay */
+      #modalBackground {
+        display: none; /* Initially hidden */
+        position: fixed; /* Fixed position to cover the entire screen */
+        top: 0; /* Cover the whole screen */
+        left: 0; /* Cover the whole screen */
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        justify-content: center; /* Center the modal */
+        align-items: center; /* Center the modal */
+        z-index: 900; /* Below the modal */
+      }
+      
+    .open-modal{
+        margin: 10px;
+
+    }
+
+    /* Close Button */
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #FF6F3C;
     }
 
     /* Input Fields */
     input[type="text"], input[type="date"], input[type="time"] {
-        width: 95%;
-        padding: 10px;
-        margin: 5px 0 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #2A2D34;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #2A2D34;
     }
 
     /* Table Styling */
     table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
     }
     table, th, td {
-        border: 1px solid #ddd;
+      border: 1px solid #ddd;
     }
     th, td {
-        padding: 10px;
-        text-align: left;
+      padding: 10px;
+      text-align: left;
     }
     th {
-        background-color: #2A2D34;
-        color: white;
-    }
-    td {
-        background-color: #fff;
-    }
-
-    /* Event Message Styling */
-    #eventMessage {
-        color: #FF6F3C;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    /* Additional Styling for Labels and Headings */
-    label {
-        color: #2A2D34;
-        font-weight: bold;
-    }
-    h3 {
-        color: #2A2D34;
-        margin-top: 20px;
-    }
-
-    /* Responsive Styling */
-    @media (max-width: 768px) {
-        body {
-            padding: 10px;
-        }
-
-        #logoutButton {
-            top: 10px;
-            right: 10px;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
-
-        section {
-            padding: 15px;
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 24px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 20px;
-        }
-
-        input[type="text"], input[type="date"], input[type="time"] {
-            width: 100%;
-            font-size: 14px;
-        }
-
-        button {
-            padding: 8px 10px;
-            font-size: 14px;
-        }
-
-        table {
-            font-size: 14px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        h1 {
-            font-size: 20px;
-        }
-
-        h2 {
-            font-size: 18px;
-        }
-
-        #logoutButton {
-            font-size: 12px;
-            padding: 6px 8px;
-        }
-
-        button {
-            padding: 6px 8px;
-            font-size: 12px;
-        }
-
-        input[type="text"], input[type="date"], input[type="time"] {
-            font-size: 12px;
-            padding: 8px;
-        }
-
-        th, td {
-            padding: 8px;
-        }
+      background-color: #2A2D34;
+      color: white;
     }
   </style>
 </head>
 <body>
-
-    <div id="loader" class="loader">
-    <div class="loader-background"></div>
-    <img src="/anda-removebg-preview.png" alt="Loading..." class="logo" />
-    <div class="rotating-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</div>
-
   <h1>Admin Panel</h1>
   <button id="logoutButton">Logout</button>
+  <div id="loader" class="loader">
+    <img src="/anda-removebg-preview.png" alt="Loading..." />
+</div>
 
-  <!-- Create Event Section -->
-  <section id="createEventSection">
-    <h2>Create Event and Post Attendance</h2>
-    <label for="eventName">Event Name:</label>
-    <input type="text" id="eventName" required>
-    <label for="eventDate">Event Date:</label>
-    <input type="date" id="eventDate" required>
-    <label for="eventStartTime">Event Start Time:</label>
-    <input type="time" id="eventStartTime" required>
-    <label for="eventEndTime">Event End Time:</label>
-    <input type="time" id="eventEndTime" required>
+  <!-- Trigger Buttons for Modals -->
+  <button class="open-modal" data-modal="createEventModal">Create Event and Post Attendance</button>
+  <button class="open-modal" data-modal="viewAttendanceModal">View and Download Attendance</button>
+  <button class="open-modal" data-modal="eventSummaryModal">All Posted Events Summary</button>
 
-    <button id="createEvent">Create Event</button>
+  <!-- Modal Background -->
+  <div id="modalBackground" class="modal-background">
 
-    <h3>Mark Attendance</h3>
-    <label for="searchStudent">Search by Registration Number:</label>
-  <input type="text" id="searchStudent" placeholder="Enter registration number">
-    <table>
-      <thead>
-        <tr>
-          <th>Registration Number</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="studentsTableBody"></tbody>
-    </table>
-    <button id="postAttendance">Post Attendance</button>
-    <p id="eventMessage"></p>
-  </section>
+    <!-- Create Event Modal -->
+    <div id="createEventModal" class="modal-content">
+      <button class="close-modal" aria-label="Close Modal">&times;</button>
+      <h2>Create Event and Post Attendance</h2>
+      <label for="eventName">Event Name:</label>
+      <input type="text" id="eventName" required>
+      <label for="eventDate">Event Date:</label>
+      <input type="date" id="eventDate" required>
+      <label for="eventStartTime">Event Start Time:</label>
+      <input type="time" id="eventStartTime" required>
+      <label for="eventEndTime">Event End Time:</label>
+      <input type="time" id="eventEndTime" required>
+      <button id="createEvent">Create Event</button>
 
-  <!-- View Attendance Section -->
-  <section id="viewAttendanceSection">
-    <h2>View and Download Attendance</h2>
-    <label for="viewEventName">Event Name:</label>
-    <input type="text" id="viewEventName" required>
-    <label for="viewEventDate">Event Date:</label>
-    <input type="date" id="viewEventDate" required>
-    <label for="eventStartTime">Event Start Time:</label>
+      <h3>Mark Attendance</h3>
+      <label for="searchStudent">Search by Registration Number:</label>
+      <input type="text" id="searchStudent" placeholder="Enter registration number">
+      <table>
+        <thead>
+          <tr>
+            <th>Registration Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="studentsTableBody"></tbody>
+      </table>
+      <button id="postAttendance">Post Attendance</button>
+      <p id="eventMessage"></p>
+    </div>
+
+    <!-- View Attendance Modal -->
+    <div id="viewAttendanceModal" class="modal-content">
+      <button class="close-modal" aria-label="Close Modal">&times;</button>
+      <h2>View and Download Attendance</h2>
+      <label for="viewEventName">Event Name:</label>
+      <input type="text" id="viewEventName" required>
+      <label for="viewEventDate">Event Date:</label>
+      <input type="date" id="viewEventDate" required>
+      <label for="eventStartTime">Event Start Time:</label>
     <input type="time" id="viewEventStartTime" required>
     <label for="eventEndTime">Event End Time:</label>
     <input type="time" id="viewEventEndTime" required>
-    <button id="viewAttendance">View Attendance</button>
-    <button id="downloadAttendance">Download Attendance (Excel)</button>
+      <button id="viewAttendance">View Attendance</button>
+      <button id="downloadAttendance">Download Attendance (Excel)</button>
 
-    <h3>Attendance Records</h3>
-    <label for="searchStudent">Search by Registration Number:</label>
-  <input type="text" id="searchStudent1" placeholder="Enter registration number">
-    <table>
-      <thead>
-        <tr>
-          <th>Registration Number</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="attendanceTableBody"></tbody>
-    </table>
-  </section>
+      <h3>Attendance Records</h3>
+      <label for="searchStudent1">Search by Registration Number:</label>
+      <input type="text" id="searchStudent1" placeholder="Enter registration number">
+      <table>
+        <thead>
+          <tr>
+            <th>Registration Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Event Summary Modal -->
+    <div id="eventSummaryModal" class="modal-content">
+      <button class="close-modal" aria-label="Close Modal">&times;</button>
+      <h2>All Posted Events Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Present Count</th>
+            <th>Absent Count</th>
+          </tr>
+        </thead>
+        <tbody id="eventSummaryTableBody"></tbody>
+      </table>
+      <button id="viewEventSummary">Load Event Summaries</button>
+    </div>
+  </div>
 
   <script src="admin.js"></script>
-  <script src="loader.js"></script>
+  <script>
+    document.querySelectorAll('.open-modal').forEach(button => {
+        button.addEventListener('click', () => {
+          // Hide all modals before showing the clicked one
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          
+          // Show only the modal linked with the clicked button
+          const modalId = button.getAttribute('data-modal');
+          document.getElementById(modalId).style.display = 'block';
+          
+          // Show the modal background
+          document.getElementById('modalBackground').style.display = 'flex';
+        });
+      });
+      
+      // Close modals when the close button is clicked
+      document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          document.getElementById('modalBackground').style.display = 'none';
+        });
+      });
+      
+      // Close modal if the background is clicked
+      document.getElementById('modalBackground').addEventListener('click', (event) => {
+        if (event.target === document.getElementById('modalBackground')) {
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          document.getElementById('modalBackground').style.display = 'none';
+        }
+      });
+      
+  </script>
 </body>
 </html>
