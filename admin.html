@@ -55,33 +55,45 @@
     }
 
     .modal-content {
-        display: none; /* Initially hidden */
-        position: fixed; /* Fixed position to overlay */
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        transform: translate(-50%, -50%); /* Adjust centering */
-        background-color: #fff; /* White background */
-        padding: 20px; /* Padding inside the modal */
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-        max-height: 80%; /* Maximum height of the modal */
-        overflow-y: auto; /* Enable vertical scrolling */
-        z-index: 1000; /* Bring to front */
-      }
-      
-      /* Background overlay */
-      #modalBackground {
-        display: none; /* Initially hidden */
-        position: fixed; /* Fixed position to cover the entire screen */
-        top: 0; /* Cover the whole screen */
-        left: 0; /* Cover the whole screen */
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-        justify-content: center; /* Center the modal */
-        align-items: center; /* Center the modal */
-        z-index: 900; /* Below the modal */
-      }
+  display: none; /* Initially hidden */
+  position: fixed; /* Fixed position to overlay */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust centering */
+  background-color: #fff; /* White background */
+  padding: 20px; /* Padding inside the modal */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  max-height: 80%; /* Maximum height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  z-index: 1000; /* Bring to front */
+  width: 90%; /* Responsive width for mobile */
+  max-width: 600px; /* Maximum width to prevent it from becoming too large */
+}
+
+/* Background overlay */
+#modalBackground {
+  display: none; /* Initially hidden */
+  position: fixed; /* Fixed position to cover the entire screen */
+  top: 0; /* Cover the whole screen */
+  left: 0; /* Cover the whole screen */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  justify-content: center; /* Center the modal */
+  align-items: center; /* Center the modal */
+  z-index: 900; /* Below the modal */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%; /* Slightly more width on small screens */
+    padding: 10px; /* Reduced padding for small screens */
+  }
+}
+
       
     .open-modal{
         margin: 10px;
