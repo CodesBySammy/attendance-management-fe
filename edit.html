@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Attendance</title>
+</head>
+<body>
+    <h2>Edit Attendance</h2>
+    
+    <!-- Form to enter event and student details -->
+    <form id="searchForm">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" required>
+        
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" required>
+        
+        <label for="eventStartTime">Event Start Time:</label>
+        <input type="time" id="eventStartTime" required>
+        
+        <label for="eventEndTime">Event End Time:</label>
+        <input type="time" id="eventEndTime" required>
+
+        <label for="registrationNumber">Student Registration Number:</label>
+        <input type="text" id="registrationNumber" required>
+        
+        <button type="button" onclick="fetchAttendance()">Search Attendance</button>
+    </form>
+    
+    <!-- Display attendance record -->
+    <div id="attendanceRecord" style="display: none;">
+        <h3>Attendance Record</h3>
+        <p><strong>Student Name:</strong> <span id="studentName"></span></p>
+        <p><strong>Registration Number:</strong> <span id="studentRegNo"></span></p>
+        
+        <label for="newStatus">Edit Attendance Status:</label>
+        <select id="newStatus">
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+        
+        <button type="button" onclick="updateAttendance()">Update Attendance</button>
+    </div>
+
+    <script>
+        async function fetchAttendance() {
+            const eventName = document.getElementById("eventName").value;
+            const eventDate = document.getElementById("eventDate").value;
+            const eventStartTime = document.getElementById("eventStartTime").value;
+            const eventEndTime = document.getElementById("eventEndTime").value;
+            const registrationNumber = document.getElementById("registrationNumber").value;
+
+            try {
+                const response = await fetch(`https://exc-attendance-be.vercel.app/admin/edit-attendance?eventName=${eventName}&eventDate=${eventDate}&eventStartTime=${eventStartTime}&eventEndTime=${eventEndTime}&registrationNumber=${registrationNumber}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token, // add your token here
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById("studentName").textContent = data.student.name;
+                    document.getElementById("studentRegNo").textContent = data.student.registrationNumber;
+                    document.getElementById("newStatus").value = data.student.status;
+                    document.getElementById("attendanceRecord").style.display = 'block';
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching attendance:', error);
+                alert('Failed to fetch attendance record');
+            }
+        }
+
+        async function updateAttendance() {
+            const eventName = document.getElementById("eventName").value;
+            const eventDate = document.getElementById("eventDate").value;
+            const eventStartTime = document.getElementById("eventStartTime").value;
+            const eventEndTime = document.getElementById("eventEndTime").value;
+            const registrationNumber = document.getElementById("registrationNumber").value;
+            const newStatus = document.getElementById("newStatus").value;
+
+            try {
+                const response = await fetch('https://exc-attendance-be.vercel.app/admin/update-attendance', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token, // add your token here
+                    },
+                    body: JSON.stringify({ eventName, eventDate, eventStartTime, eventEndTime, registrationNumber, newStatus })
+                });
+
+                const data = await response.json();
+                alert(data.message); // Display success or error message
+                if (response.ok) {
+                    document.getElementById("attendanceRecord").style.display = 'none'; // Hide record after update
+                    document.getElementById("searchForm").reset(); // Optionally reset the form fields
+                }
+            } catch (error) {
+                console.error('Error updating attendance:', error);
+                alert('Failed to update attendance');
+            }
+        }
+    </script>
+</body>
+</html>
