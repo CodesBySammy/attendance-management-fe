@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const studentsTableBody = document.getElementById('studentsTableBody');
   const attendanceTableBody = document.getElementById('attendanceTableBody');
   const eventMessage = document.getElementById('eventMessage');
+  const viewEventSummaryBtn = document.getElementById('viewEventSummary'); 
+  const eventSummaryTableBody = document.getElementById('eventSummaryTableBody'); 
 
   // Fetch Students for Attendance
   createEventBtn.addEventListener('click', async () => {
@@ -172,6 +174,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+   // View Event Summary
+   viewEventSummaryBtn.addEventListener('click', async () => {
+    try {
+      const response = await fetch('https://exc-attendance-be.vercel.app/admin/event-summary', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        eventMessage.textContent = data.message || 'Error fetching event summary';
+        return;
+      }
+
+      const summaries = await response.json();
+
+      // Clear previous summaries
+      eventSummaryTableBody.innerHTML = '';
+
+      summaries.forEach(summary => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${summary.eventName}</td>
+          <td>${summary.eventDate}</td>
+          <td>${summary.eventStartTime}</td>
+          <td>${summary.eventEndTime}</td>
+          <td>${summary.presentCount}</td>
+          <td>${summary.absentCount}</td>
+        `;
+        eventSummaryTableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error('Error fetching event summary:', error);
+    }
+  });
+
 
   // Logout
   document.getElementById('logoutButton').addEventListener('click', () => {
