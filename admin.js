@@ -145,6 +145,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  document.getElementById('searchStudent').addEventListener('input', function () {
+    const filter = this.value.toUpperCase();
+    const table = document.getElementById('studentsTableBody');
+    const rows = table.getElementsByTagName('tr');
+  
+    Array.from(rows).forEach(row => {
+      const regNumberCell = row.getElementsByTagName('td')[0]; // Assuming registration number is in the first column
+      if (regNumberCell) {
+        const txtValue = regNumberCell.textContent || regNumberCell.innerText;
+        row.style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+      }
+    });
+  });
+  
+  document.getElementById('searchStudent1').addEventListener('input', function () {
+    const filter = this.value.toUpperCase();
+    const table = document.getElementById('attendanceTableBody');
+    const rows = table.getElementsByTagName('tr');
+  
+    Array.from(rows).forEach(row => {
+      const regNumberCell = row.getElementsByTagName('td')[0]; // Assuming registration number is in the first column
+      if (regNumberCell) {
+        const txtValue = regNumberCell.textContent || regNumberCell.innerText;
+        row.style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+      }
+    });
+  });
+
   // Logout
   document.getElementById('logoutButton').addEventListener('click', () => {
     localStorage.removeItem('token');
