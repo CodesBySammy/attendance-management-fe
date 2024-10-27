@@ -1,0 +1,33 @@
+/* Hide the loader initially */
+.loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Add a spinning animation */
+.loader img {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    animation: spin 1.5s linear infinite;
+}
+
+/* Define the spinning animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Hide loader when not loading */
+.hidden {
+    display: none;
+}
