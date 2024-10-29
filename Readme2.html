@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Attendance</title>
+  <link rel="icon" type="image/png" href="/anda-removebg-preview.png"> <!-- For a .png favicon -->
+ <link rel="stylesheet" href="styles.css">
+
+ <style>
+   /* General Reset */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Body Styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #2A2D34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* Header Styling */
+  h1 {
+    color: #FF6F3C;
+    margin-bottom: 20px;
+  }
+
+  /* Button Styling */
+  button {
+    background-color: #FF6F3C;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+  }
+
+  button:hover {
+    background-color: #e65a28;
+  }
+
+  /* Section Styling */
+  section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 50px;
+  }
+
+  h2 {
+    color: #2A2D34;
+    margin-bottom: 15px;
+  }
+
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #2A2D34;
+    color: white;
+  }
+
+  td {
+    background-color: #fff;
+  }
+</style>
+</head>
+<body>
+ <div id="loader" class="loader">
+    <div class="loader-background"></div>
+    <div class="rotating-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+  <button id="logoutButton">Logout</button>
+
+  <section id="userAttendanceSection">
+    <h2>My Attendance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Event Start Time</th>
+          <th>Event End Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="userAttendanceTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="common.js"></script>
+  <script src="loader.js"></script>
+</body>
+</html>
