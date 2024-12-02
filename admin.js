@@ -244,6 +244,52 @@ viewAttendanceBtn.addEventListener('click', async () => {
     }
   });
 
+  // Save Edited Attendance
+  document.getElementById('saveEditedAttendance').addEventListener('click', async () => {
+    const studentId = document.getElementById('editStudentId').value;
+    const eventName = document.getElementById('editEventName').value;
+    const eventDate = document.getElementById('editEventDate').value;
+    const eventStartTime = document.getElementById('editEventStartTime').value;
+    const eventEndTime = document.getElementById('editEventEndTime').value;
+    const newStatus = document.getElementById('editAttendanceStatus').value;
+
+    try {
+      const response = await fetch('http://localhost:3000/admin/edit-attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          studentId,
+          eventName,
+          eventDate,
+          eventStartTime,
+          eventEndTime,
+          newStatus
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        // Close the edit modal
+        document.getElementById('editAttendanceModal').style.display = 'none';
+        document.getElementById('modalBackground').style.display = 'none';
+        
+        // Refresh the attendance view
+        document.getElementById('viewAttendance').click();
+        
+        alert(data.message);
+      } else {
+        alert('Failed to update attendance: ' + data.message);
+      }
+    } catch (error) {
+      console.error('Error editing attendance:', error);
+      alert('An error occurred while editing attendance');
+    }
+  });
+
 
   // Logout
   document.getElementById('logoutButton').addEventListener('click', () => {
