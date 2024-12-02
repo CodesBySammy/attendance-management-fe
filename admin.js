@@ -254,7 +254,7 @@ viewAttendanceBtn.addEventListener('click', async () => {
     const newStatus = document.getElementById('editAttendanceStatus').value;
 
     try {
-      const response = await fetch('http://localhost:3000/admin/edit-attendance', {
+      const response = await fetch('https://exc-attendance-be.vercel.app/admin/edit-attendance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
