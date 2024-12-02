@@ -140,6 +140,19 @@
       background-color: #2A2D34;
       color: white;
     }
+    #editAttendanceModal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1100;
+      width: 90%;
+      max-width: 500px;
+    }
   </style>
 </head>
 <body>
@@ -245,6 +258,34 @@
       </table>
       <button id="viewEventSummary">Load Event Summaries</button>
     </div>
+  </div>
+
+  <!-- Edit Attendance Modal -->
+  <div id="editAttendanceModal" class="modal-content" style="display: none;">
+    <button class="close-modal" aria-label="Close Modal">&times;</button>
+    <h2>Edit Attendance</h2>
+    <input type="hidden" id="editStudentId">
+    <input type="hidden" id="editEventName">
+    <input type="hidden" id="editEventDate">
+    <input type="hidden" id="editEventStartTime">
+    <input type="hidden" id="editEventEndTime">
+    
+    <div>
+      <label for="editStudentName">Student Name:</label>
+      <input type="text" id="editStudentName" readonly>
+    </div>
+    <div>
+      <label for="editStudentRegistration">Registration Number:</label>
+      <input type="text" id="editStudentRegistration" readonly>
+    </div>
+    <div>
+      <label for="editAttendanceStatus">Attendance Status:</label>
+      <select id="editAttendanceStatus">
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+      </select>
+    </div>
+    <button id="saveEditedAttendance">Save Changes</button>
   </div>
 
   <script src="admin.js"></script>
