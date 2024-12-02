@@ -228,17 +228,20 @@ viewAttendanceBtn.addEventListener('click', async () => {
       eventSummaryTableBody.innerHTML = '';
 
       summaries.forEach(summary => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${summary.eventName}</td>
-          <td>${summary.eventDate}</td>
-          <td>${summary.eventStartTime}</td>
-          <td>${summary.eventEndTime}</td>
-          <td>${summary.presentCount}</td>
-          <td>${summary.absentCount}</td>
-        `;
-        eventSummaryTableBody.appendChild(row);
-      });
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${summary.eventName}</td>
+    <td>${summary.eventDate}</td>
+    <td>${summary.eventStartTime}</td>
+    <td>${summary.eventEndTime}</td>
+    <td>${summary.presentCount}</td>
+    <td>${summary.absentCount}</td>
+    <td>
+      <button class="delete-event" style="background-color: red; color: white;">Delete</button>
+    </td>
+  `;
+  eventSummaryTableBody.appendChild(row);
+});
     } catch (error) {
       console.error('Error fetching event summary:', error);
     }
@@ -290,6 +293,51 @@ viewAttendanceBtn.addEventListener('click', async () => {
     }
   });
 
+  // Add this inside the existing DOMContentLoaded event listener in admin.js
+
+// Delete Event Functionality
+eventSummaryTableBody.addEventListener('click', async (event) => {
+  if (event.target.classList.contains('delete-event')) {
+    const row = event.target.closest('tr');
+    const eventName = row.querySelector('td:first-child').textContent;
+    const eventDate = row.querySelector('td:nth-child(2)').textContent;
+    const eventStartTime = row.querySelector('td:nth-child(3)').textContent;
+    const eventEndTime = row.querySelector('td:nth-child(4)').textContent;
+
+    const confirmDelete = confirm(`Are you sure you want to delete the event: ${eventName} on ${eventDate}?`);
+    
+    if (confirmDelete) {
+      try {
+        const response = await fetch('http://localhost:3000/admin/delete-event', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify({ 
+            eventName, 
+            eventDate, 
+            eventStartTime, 
+            eventEndTime 
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Remove the row from the table
+          row.remove();
+          alert('Event deleted successfully');
+        } else {
+          alert('Failed to delete event: ' + data.message);
+        }
+      } catch (error) {
+        console.error('Error deleting event:', error);
+        alert('An error occurred while deleting the event');
+      }
+    }
+  }
+});
 
   // Logout
   document.getElementById('logoutButton').addEventListener('click', () => {
