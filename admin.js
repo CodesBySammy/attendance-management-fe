@@ -308,7 +308,7 @@ eventSummaryTableBody.addEventListener('click', async (event) => {
     
     if (confirmDelete) {
       try {
-        const response = await fetch('http://localhost:3000/admin/delete-event', {
+        const response = await fetch('https://exc-attendance-be.vercel.app/admin/delete-event', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
