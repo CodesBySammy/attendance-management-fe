@@ -66,15 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // View Attendance
-  viewAttendanceBtn.addEventListener('click', async () => {
+viewAttendanceBtn.addEventListener('click', async () => {
     const viewEventName = document.getElementById('viewEventName').value;
     const viewEventDate = document.getElementById('viewEventDate').value;
-    const viewEventStartTime = document.getElementById('viewEventStartTime').value; // Get the event start time
-    const viewEventEndTime = document.getElementById('viewEventEndTime').value; // Get the event end time
+    const viewEventStartTime = document.getElementById('viewEventStartTime').value;
+    const viewEventEndTime = document.getElementById('viewEventEndTime').value;
 
     try {
-      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}&eventStartTime=${viewEventStartTime}&eventEndTime=${viewEventEndTime}`, {
+      const response = await fetch(`http://localhost:3000/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}&eventStartTime=${viewEventStartTime}&eventEndTime=${viewEventEndTime}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       
@@ -82,10 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
       attendanceTableBody.innerHTML = '';
 
       if (!response.ok) {
-        // If the response status is not OK, show an error message
         const data = await response.json();
-        eventMessage.textContent = data.message; // Display the message from the server
-        return; // Exit the function early
+        eventMessage.textContent = data.message;
+        return;
       }
 
       const attendance = await response.json();
@@ -93,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Check if attendance records exist
       if (attendance.length === 0) {
         const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="4">This event does not exist.</td>`;
+        row.innerHTML = `<td colspan="5">This event does not exist.</td>`;
         attendanceTableBody.appendChild(row);
       } else {
         attendance.forEach(record => {
@@ -107,17 +105,53 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${record.name}</td>
             <td>${record.email}</td>
             <td style="color: ${statusColor};">${record.status}</td>
+            <td>
+              <button class="edit-attendance" 
+                      data-student-id="${record._id}"
+                      data-name="${record.name}"
+                      data-registration="${record.registrationNumber}"
+                      data-event-name="${viewEventName}"
+                      data-event-date="${viewEventDate}"
+                      data-event-start-time="${viewEventStartTime}"
+                      data-event-end-time="${viewEventEndTime}">
+                Edit
+              </button>
+            </td>
           `;
           attendanceTableBody.appendChild(row);
         });
-         // Display event start time and end time (if needed)
-    const eventInfo = document.getElementById('eventInfo');
-    eventInfo.textContent = `Event Start Time: ${data.eventStartTime}, Event End Time: ${data.eventEndTime}`; // Show event times
+
+        // Add event listeners to edit buttons
+        document.querySelectorAll('.edit-attendance').forEach(button => {
+          button.addEventListener('click', () => {
+            const studentId = button.getAttribute('data-student-id');
+            const name = button.getAttribute('data-name');
+            const registrationNumber = button.getAttribute('data-registration');
+            const eventName = button.getAttribute('data-event-name');
+            const eventDate = button.getAttribute('data-event-date');
+            const eventStartTime = button.getAttribute('data-event-start-time');
+            const eventEndTime = button.getAttribute('data-event-end-time');
+
+            // Populate edit modal
+            document.getElementById('editStudentId').value = studentId;
+            document.getElementById('editStudentName').value = name;
+            document.getElementById('editStudentRegistration').value = registrationNumber;
+            document.getElementById('editEventName').value = eventName;
+            document.getElementById('editEventDate').value = eventDate;
+            document.getElementById('editEventStartTime').value = eventStartTime;
+            document.getElementById('editEventEndTime').value = eventEndTime;
+
+            // Show edit modal
+            document.getElementById('editAttendanceModal').style.display = 'block';
+            document.getElementById('modalBackground').style.display = 'flex';
+          });
+        });
       }
     } catch (error) {
       console.error('Error viewing attendance:', error);
     }
   });
+
 
   // Download Attendance as Excel
   downloadAttendanceBtn?.addEventListener('click', async () => {
