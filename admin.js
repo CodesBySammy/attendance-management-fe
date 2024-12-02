@@ -73,7 +73,7 @@ viewAttendanceBtn.addEventListener('click', async () => {
     const viewEventEndTime = document.getElementById('viewEventEndTime').value;
 
     try {
-      const response = await fetch(`http://localhost:3000/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}&eventStartTime=${viewEventStartTime}&eventEndTime=${viewEventEndTime}`, {
+      const response = await fetch(`https://exc-attendance-be.vercel.app/admin/view-attendance?eventName=${viewEventName}&eventDate=${viewEventDate}&eventStartTime=${viewEventStartTime}&eventEndTime=${viewEventEndTime}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       
