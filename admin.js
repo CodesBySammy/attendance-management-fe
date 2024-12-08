@@ -339,6 +339,36 @@ eventSummaryTableBody.addEventListener('click', async (event) => {
   }
 });
 
+    document.querySelectorAll('.open-modal').forEach(button => {
+        button.addEventListener('click', () => {
+          // Hide all modals before showing the clicked one
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          
+          // Show only the modal linked with the clicked button
+          const modalId = button.getAttribute('data-modal');
+          document.getElementById(modalId).style.display = 'block';
+          
+          // Show the modal background
+          document.getElementById('modalBackground').style.display = 'flex';
+        });
+      });
+      
+      // Close modals when the close button is clicked
+      document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          document.getElementById('modalBackground').style.display = 'none';
+        });
+      });
+      
+      // Close modal if the background is clicked
+      document.getElementById('modalBackground').addEventListener('click', (event) => {
+        if (event.target === document.getElementById('modalBackground')) {
+          document.querySelectorAll('.modal-content').forEach(modal => modal.style.display = 'none');
+          document.getElementById('modalBackground').style.display = 'none';
+        }
+      });
+
   // Logout
   document.getElementById('logoutButton').addEventListener('click', () => {
     localStorage.removeItem('token');
